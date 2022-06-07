@@ -57,7 +57,7 @@ public class App {
                     System.out.println("Enter your password");
                     String password = scanner.next();
 
-                    app_user newUser = new app_user(0, first_name, last_name, email, username, password);
+                    app_user newUser = new app_user(0, first_name, last_name, email, username, password, 0, 0, 0);
                     app_user user = app_userDAO.createapp_user(newUser);
 
                     System.out.println("congratulations you are now registered " + user);

@@ -1,5 +1,6 @@
 package dev.landen.daos;
 
+import dev.landen.utils.ConnectionFactory;
 import dev.landen.utils.ConnectionUtil;
 
 import java.sql.*;
@@ -15,21 +16,18 @@ import java.sql.Statement;
 public class appUserDaoPostgres implements app_userDAO {
 
 
-
     @Override
     public app_user createapp_user(app_user app_user) {
 
-
-        try (Connection conn = ConnectionUtil.getConnection()) {
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
             String sql = "insert into banking_app.app_users (first_name, last_name, email, username, pswd) values (?,?,?,?,?);";
-            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);//
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, app_user.getFirst_name());
             ps.setString(2, app_user.getLast_name());
             ps.setString(3, app_user.getEmail());
             ps.setString(4, app_user.getUsername());
             ps.setString(5, app_user.getPswd());
-
-
+            System.out.println(app_user);
             ps.execute();
 
             // getting the generated primary key value
@@ -37,7 +35,9 @@ public class appUserDaoPostgres implements app_userDAO {
             rs.next();
             int generatedId = rs.getInt("id");
 
+
             app_user.setId(generatedId);// the user id changing for 0 to a non zero values means that it is saved
+
             return app_user;
 
         } catch (SQLException exception) {
@@ -52,7 +52,7 @@ public class appUserDaoPostgres implements app_userDAO {
         @Override
     public app_user getuserByuserNameandPassword(String username, String pswd) {
 
-        try(Connection conn = ConnectionUtil.getConnection()){
+            try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
             String sql = "select * from banking_app.app_users where username = ? and pswd = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,username);
@@ -83,7 +83,7 @@ public class appUserDaoPostgres implements app_userDAO {
 
         // try with resources. Automatically closes the connection once the try block finishes
 
-        try(Connection conn = ConnectionUtil.getConnection()){
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "select * from banking_app.app_users where id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,id);
@@ -113,12 +113,12 @@ public class appUserDaoPostgres implements app_userDAO {
     @Override
     public List<app_user> getAllusers () {
 
-        try(Connection conn = ConnectionUtil.getConnection()){
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "select * from banking_app.app_users";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
-            List<app_user> app_users = new ArrayList<>();
+            List<app_user> app_users = new ArrayList<app_user>();
 
             while (rs.next()){
                 app_user app_user = new app_user();
@@ -129,6 +129,7 @@ public class appUserDaoPostgres implements app_userDAO {
                 app_user.setEmail(rs.getString("email"));
                 app_user.setUsername(rs.getString("username"));
                 app_user.setPswd(rs.getString("pswd"));
+
 
             }
             return app_users;
@@ -144,7 +145,7 @@ public class appUserDaoPostgres implements app_userDAO {
     @Override
     public app_user updateuser(app_user app_user) {
 
-        try(Connection conn = ConnectionUtil.getConnection()){
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "update banking_app.app_users set (first_name, last_name, email, username, pswd) values (?,?,?,?,?);";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, app_user.getFirst_name());
@@ -169,7 +170,7 @@ public class appUserDaoPostgres implements app_userDAO {
     @Override
     public void deleteapp_userById(int id) {
 
-        try(Connection conn = ConnectionUtil.getConnection()){
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()){
             String sql = "delete from banking_app.app_users where id = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,id);

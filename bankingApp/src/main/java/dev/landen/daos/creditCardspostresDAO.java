@@ -1,7 +1,6 @@
 package dev.landen.daos;
 
 import dev.landen.entities.app_user;
-import dev.landen.entities.bank_accounts;
 import dev.landen.entities.creditCards;
 import dev.landen.utils.ConnectionUtil;
 

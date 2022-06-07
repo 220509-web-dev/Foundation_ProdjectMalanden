@@ -13,9 +13,8 @@ public class ConnectionUtil {
 
         try {
 
-            // jdbc:postgresql://host/dbname?user=username&password=userpassword
-            String dbInfo = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=revature";
-            //String dbInfo = System.getenv("DB_CONNECTION");
+           // String dbInfo = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=revature";
+            String dbInfo = System.getenv("DB_CONNECTION");
             Connection connection = DriverManager.getConnection(dbInfo);
             return connection;
 

@@ -2,12 +2,13 @@ package dev.landen.daos;
 
 import dev.landen.entities.app_user;
 import dev.landen.entities.bank_accounts;
+import dev.landen.entities.mortgageAccounts;
 
 public interface mortgageDAO {
 
 
     //Create
-    bank_accounts createMortgageaccount(bank_accounts bank_accounts);
+    mortgageAccounts createMortgageaccount(mortgageAccounts mortgageAccounts);
 
 
     //Read
@@ -16,12 +17,12 @@ public interface mortgageDAO {
 
 
     //update
-    bank_accounts updatemortgageaccount(bank_accounts bank_accounts);
+    mortgageAccounts updatemortgageaccount(mortgageAccounts mortgageAccounts);
 
 
 
     //Delete
-    bank_accounts deletemortgageaccount(int userAccountid);
+    mortgageAccounts deletemortgageaccount(int userAccountid);
 
 
 

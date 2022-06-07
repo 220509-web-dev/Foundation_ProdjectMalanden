@@ -16,6 +16,8 @@ public class app_user {
     public app_user() {
     }
 
+
+
     public int getId() {
         return id;
     }
@@ -102,4 +104,17 @@ public class app_user {
                 ", mortgage_id=" + mortgage_id +
                 '}';
     }
+
+    public app_user(int id, String first_name, String last_name, String email, String username, String pswd, int bank_id, int credit_card_id, int mortgage_id) {
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.username = username;
+        this.pswd = pswd;
+        this.bank_id = bank_id;
+        this.credit_card_id = credit_card_id;
+        this.mortgage_id = mortgage_id;
+    }
+
 }
